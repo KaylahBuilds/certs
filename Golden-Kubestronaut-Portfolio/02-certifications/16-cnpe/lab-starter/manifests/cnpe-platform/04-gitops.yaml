@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cnpe-tenants
+  namespace: argocd
+spec:
+  description: Production tenant workloads governed by platform team
+  sourceRepos:
+    - "*"
+  destinations:
+    - namespace: team-a-prod
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: payments-api-prod
+  namespace: argocd
+spec:
+  project: cnpe-tenants
+  source:
+    repoURL: https://github.com/example-org/golden-kubestronaut-labs.git
+    targetRevision: HEAD
+    path: cnpe/payments-api
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: team-a-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

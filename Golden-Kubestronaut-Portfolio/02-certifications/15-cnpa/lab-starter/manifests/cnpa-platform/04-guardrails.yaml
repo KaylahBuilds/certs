@@ -1,0 +1,41 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-standard-labels
+spec:
+  validationFailureAction: Audit
+  background: true
+  rules:
+    - name: require-owner-label
+      match:
+        any:
+          - resources:
+              kinds:
+                - Deployment
+      validate:
+        message: "owner label is required"
+        pattern:
+          metadata:
+            labels:
+              owner: "?*"
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restrict-image-registries-platform
+spec:
+  validationFailureAction: Audit
+  background: true
+  rules:
+    - name: registry-allow-list
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: "Image must come from approved registries"
+        pattern:
+          spec:
+            containers:
+              - image: "ghcr.io/* | registry.k8s.io/*"

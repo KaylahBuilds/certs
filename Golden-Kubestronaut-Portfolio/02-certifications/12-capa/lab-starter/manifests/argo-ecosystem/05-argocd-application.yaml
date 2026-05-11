@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: capa-sample-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/example-org/golden-kubestronaut-labs.git
+    targetRevision: HEAD
+    path: capa/app
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: capa-lab
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
