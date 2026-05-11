@@ -1,0 +1,3 @@
+Retrieval-augmented generation (RAG) combines a large language model with a retrieval system. The retrieval system pulls relevant context from curated documents at inference time. This reduces hallucination risk because the model is prompted with grounded information.
+
+RAG pipelines usually include document parsing, chunking, embedding, indexing, retrieval, and answer generation. Performance depends on chunk quality, embedding model quality, and ranking strategy.

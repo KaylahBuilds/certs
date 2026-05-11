@@ -1,0 +1,32 @@
+[
+  {
+    "id": "case-1",
+    "task": "Summarize an internal policy memo for executives.",
+    "baseline_prompt": "Summarize this policy memo.",
+    "improved_prompt": "You are an enterprise analyst. Summarize the memo in exactly 5 bullet points, include one risk and one recommendation, and avoid speculative claims.",
+    "baseline_response": "",
+    "improved_response": "",
+    "required_keywords": ["risk", "recommendation"],
+    "banned_keywords": ["I think", "maybe"]
+  },
+  {
+    "id": "case-2",
+    "task": "Answer a product support question using provided context only.",
+    "baseline_prompt": "Answer the support question.",
+    "improved_prompt": "Answer using only the provided context. If the context is insufficient, respond with: 'Insufficient context provided.' Include a confidence level: High, Medium, or Low.",
+    "baseline_response": "",
+    "improved_response": "",
+    "required_keywords": ["confidence"],
+    "banned_keywords": ["hallucinate", "made up"]
+  },
+  {
+    "id": "case-3",
+    "task": "Generate onboarding steps for new analysts.",
+    "baseline_prompt": "Write onboarding steps.",
+    "improved_prompt": "Create a numbered list with 7 onboarding steps. Include one compliance checkpoint and one data privacy reminder.",
+    "baseline_response": "",
+    "improved_response": "",
+    "required_keywords": ["compliance", "privacy"],
+    "banned_keywords": ["ignore policy"]
+  }
+]

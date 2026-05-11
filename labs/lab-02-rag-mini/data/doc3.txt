@@ -1,0 +1,3 @@
+Trustworthy AI for enterprise systems includes safety controls, transparent operations, and reliable fallback behavior. Systems should log prompts, retrieval context, and outputs for auditability.
+
+Prompt injection and data exfiltration are key risks in LLM systems. Mitigations include input filtering, policy checks, controlled tool use, and strict handling of sensitive data.
