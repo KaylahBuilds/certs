@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: capa-web-rollout
+  namespace: capa-lab
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: capa-web
+  strategy:
+    canary:
+      canaryService: capa-web-canary
+      stableService: capa-web-stable
+      steps:
+        - setWeight: 20
+        - pause:
+            duration: 30s
+        - setWeight: 50
+        - pause:
+            duration: 30s
+  template:
+    metadata:
+      labels:
+        app: capa-web
+    spec:
+      containers:
+        - name: web
+          image: nginx:1.27
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: capa-web-stable
+  namespace: capa-lab
+spec:
+  selector:
+    app: capa-web
+  ports:
+    - port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: capa-web-canary
+  namespace: capa-lab
+spec:
+  selector:
+    app: capa-web
+  ports:
+    - port: 80
+      targetPort: 80

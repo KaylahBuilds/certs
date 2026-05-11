@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: platform-kpi-baseline
+  namespace: platform-system
+data:
+  deployment_frequency: "weekly"
+  lead_time_for_changes: "3d"
+  change_failure_rate: "18%"
+  mttr: "4h"
+  target_deployment_frequency: "daily"
+  target_lead_time_for_changes: "<1d"
+  target_change_failure_rate: "<8%"
+  target_mttr: "<1h"

@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata:
+  name: capa-webhook
+  namespace: argo-events
+spec:
+  service:
+    ports:
+      - port: 12000
+        targetPort: 12000
+  webhook:
+    release:
+      endpoint: /release
+      method: POST
+      port: "12000"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: capa-release-sensor
+  namespace: argo-events
+spec:
+  template:
+    serviceAccountName: operate-workflow-sa
+  dependencies:
+    - name: release-dependency
+      eventSourceName: capa-webhook
+      eventName: release
+  triggers:
+    - template:
+        name: trigger-release-check
+        k8s:
+          operation: create
+          source:
+            resource:
+              apiVersion: argoproj.io/v1alpha1
+              kind: Workflow
+              metadata:
+                generateName: capa-event-check-
+                namespace: capa-lab
+              spec:
+                entrypoint: event-check
+                templates:
+                  - name: event-check
+                    container:
+                      image: busybox:1.36
+                      command: [sh, -c]
+                      args: ["echo event trigger executed"]

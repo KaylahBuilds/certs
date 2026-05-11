@@ -1,0 +1,11 @@
+apiVersion: platform.example.io/v1alpha1
+kind: ServiceClaim
+metadata:
+  name: payments-api
+  namespace: team-a-prod
+spec:
+  serviceName: payments-api
+  owner: team-a
+  tier: gold
+  runtime: container
+  exposure: internal

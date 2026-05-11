@@ -1,0 +1,38 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: payments-platform
+  description: Shared platform capabilities for payments workloads
+spec:
+  owner: platform-team
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: platform-team
+spec:
+  type: team
+  profile:
+    displayName: Platform Team
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: payments-cluster
+  description: Kubernetes cluster used by payments services
+spec:
+  type: kubernetes-cluster
+  owner: platform-team
+  system: payments-platform
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: checkout-service
+  description: Checkout microservice managed by platform golden path
+spec:
+  type: service
+  lifecycle: production
+  owner: platform-team
+  system: payments-platform

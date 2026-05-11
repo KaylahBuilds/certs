@@ -1,0 +1,32 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: platform-golden-service
+  title: Golden Service Template
+  description: Bootstrap a service with CI, GitOps, and observability defaults
+spec:
+  owner: group:default/platform-team
+  type: service
+  parameters:
+    - title: Service Details
+      required: [serviceName, owner]
+      properties:
+        serviceName:
+          title: Service Name
+          type: string
+        owner:
+          title: Owner Group
+          type: string
+  steps:
+    - id: fetchBase
+      name: Fetch Base Skeleton
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          name: ${{ parameters.serviceName }}
+    - id: publish
+      name: Publish Repository
+      action: publish:github
+      input:
+        repoUrl: github.com?repo=${{ parameters.serviceName }}&owner=example-org

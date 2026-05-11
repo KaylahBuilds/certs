@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: capa-lab
+data:
+  MESSAGE: "hello from capa lab"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capa-web
+  namespace: capa-lab
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: capa-web
+  template:
+    metadata:
+      labels:
+        app: capa-web
+    spec:
+      containers:
+        - name: web
+          image: nginx:1.27
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: capa-web
+  namespace: capa-lab
+spec:
+  selector:
+    app: capa-web
+  ports:
+    - port: 80
+      targetPort: 80

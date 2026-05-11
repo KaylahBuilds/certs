@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: platform-tenants
+  namespace: argocd
+spec:
+  description: Tenant workloads managed by platform team
+  sourceRepos:
+    - "*"
+  destinations:
+    - namespace: team-a-dev
+      server: https://kubernetes.default.svc
+    - namespace: team-b-dev
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: team-a-checkout
+  namespace: argocd
+spec:
+  project: platform-tenants
+  source:
+    repoURL: https://github.com/example-org/golden-kubestronaut-labs.git
+    targetRevision: HEAD
+    path: cnpa/team-a-checkout
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: team-a-dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

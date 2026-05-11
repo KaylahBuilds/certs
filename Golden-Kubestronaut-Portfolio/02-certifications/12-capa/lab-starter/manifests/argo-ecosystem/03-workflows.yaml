@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: capa-release-check
+  namespace: capa-lab
+spec:
+  entrypoint: run-checks
+  templates:
+    - name: run-checks
+      steps:
+        - - name: smoke-check
+            template: smoke
+        - - name: policy-note
+            template: policy
+    - name: smoke
+      container:
+        image: curlimages/curl:8.8.0
+        command: [sh, -c]
+        args: ["echo running smoke checks; sleep 2"]
+    - name: policy
+      container:
+        image: busybox:1.36
+        command: [sh, -c]
+        args: ["echo release policy checks complete"]
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: capa-release-check-
+  namespace: capa-lab
+spec:
+  workflowTemplateRef:
+    name: capa-release-check

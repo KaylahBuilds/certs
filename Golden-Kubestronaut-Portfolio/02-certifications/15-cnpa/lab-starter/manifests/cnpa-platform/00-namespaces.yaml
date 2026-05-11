@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: platform-system
+  labels:
+    platform-role: control-plane
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: team-a-dev
+  labels:
+    team: a
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: team-b-dev
+  labels:
+    team: b
