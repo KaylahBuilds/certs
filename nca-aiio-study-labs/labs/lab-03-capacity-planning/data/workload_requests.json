@@ -1,0 +1,8 @@
+{
+  "requests": [
+    {"name": "train-recsys-v2", "gpus": 16, "priority": "high"},
+    {"name": "train-vision-v5", "gpus": 24, "priority": "high"},
+    {"name": "batch-embedding-refresh", "gpus": 8, "priority": "medium"},
+    {"name": "exp-ablation-run", "gpus": 6, "priority": "low"}
+  ]
+}

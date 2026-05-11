@@ -1,0 +1,11 @@
+{
+  "steps": [
+    "acknowledge incident",
+    "assess blast radius",
+    "isolate impacted nodes",
+    "apply mitigation",
+    "validate service recovery",
+    "communicate status update",
+    "open postmortem"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "clusters": [
+    {
+      "name": "dgx-core",
+      "nodes": 6,
+      "gpus_per_node": 8,
+      "usable_gpu_fraction": 0.9,
+      "allocated_gpus": 34
+    },
+    {
+      "name": "hgx-burst",
+      "nodes": 4,
+      "gpus_per_node": 8,
+      "usable_gpu_fraction": 0.85,
+      "allocated_gpus": 17
+    }
+  ]
+}

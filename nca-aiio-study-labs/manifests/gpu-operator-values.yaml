@@ -1,0 +1,17 @@
+# Example values for study and discussion only.
+# Validate version-specific fields against official docs before production use.
+
+driver:
+  enabled: true
+
+toolkit:
+  enabled: true
+
+dcgm:
+  enabled: true
+
+dcgmExporter:
+  enabled: true
+
+mig:
+  strategy: single
